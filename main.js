@@ -149,9 +149,12 @@ async function sukaStatus(idDokumen) {
             tombol.classList.add("liked")
         }
 
-        // 🔊 SUARA SAAT LIKE
-        const suara = new Audio("like.mp3")
-        suara.play()
+        // 🔊 SUARA LIKE
+        const suara = new Audio("./suka.mp3")
+        suara.currentTime = 0
+        suara.play().catch(error => {
+            console.log("Suara tidak bisa diputar:", error)
+        })
 
         // ❤️ Notifikasi
         tampilToast("❤️ Terima kasih sudah memberi Like!")
@@ -160,35 +163,6 @@ async function sukaStatus(idDokumen) {
         console.error(error)
         tampilToast("❌ Gagal memberikan like.")
     }
-}
-
-// 7. Fungsi untuk memuat daftar postingan di admin.html beserta tombol Hapus
-function muatDaftarAdmin() {
-    if (!document.getElementById("daftarAdmin")) return
-
-    const q = query(medsosCollection, orderBy("waktu", "desc"))
-
-    onSnapshot(q, (snapshot) => {
-        let output = ""
-        if (snapshot.empty) {
-            output = "<p style='color: #8e8e8e; font-size: 14px;'>Belum ada postingan.</p>"
-        } else {
-            snapshot.forEach((doc) => {
-                let data = doc.data()
-                let id = doc.id
-
-                output += `
-                    <div class="post-card">
-                        <div class="post-content">${data.konten}</div>
-                        <button class="btn-delete" onclick="hapusStatus('${id}')">
-                            🗑️ Hapus Post
-                        </button>
-                    </div>
-                `
-            })
-        }
-        document.getElementById("daftarAdmin").innerHTML = output
-    })
 }
 
 // 8. Fungsi untuk menghapus status dari Firestore
