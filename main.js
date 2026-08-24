@@ -81,7 +81,7 @@ function muatTimeline() {
     const q = query(medsosCollection, orderBy("waktu", "desc"))
     const daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
     
-    const suaraPostinganBaru = new Audio("notifikasi.mp3")
+    const suaraPostinganBaru = new Audio("./sound/notifikasi.mp3")
 let jumlahPostinganSebelumnya = null
 
     onSnapshot(q, (snapshot) => {
