@@ -121,48 +121,47 @@ function muatTimeline() {
 }
 // 6. Fungsi untuk menambahkan like pada status
 async function sukaStatus(idDokumen) {
-let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
+    let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
 
-// Jika sudah di-like  
-if (daftarLike.includes(idDokumen)) {  
-    tampilToast("⚠️ Kamu sudah menyukai status ini!")  
-    return  
-}  
+    if (daftarLike.includes(idDokumen)) {
+        tampilToast("⚠️ Kamu sudah menyukai status ini!")
+        return
+    }
 
-try {  
-    // Update jumlah like di Firestore  
-    await updateDoc(doc(db, "medsos", idDokumen), {  
-        likes: increment(1)  
-    })  
+    try {
+        await updateDoc(doc(db, "medsos", idDokumen), {
+            likes: increment(1)
+        })
 
-    // Simpan ID yang sudah di-like  
-    daftarLike.push(idDokumen)  
-    localStorage.setItem(  
-        "SUDAH_LIKE",  
-        JSON.stringify(daftarLike)  
-    )  
+        daftarLike.push(idDokumen)
 
-    // Ubah tampilan tombol  
-    const tombol = document.getElementById(`btn-like-${idDokumen}`)  
+        localStorage.setItem(
+            "SUDAH_LIKE",
+            JSON.stringify(daftarLike)
+        )
 
-    if (tombol) {  
-        tombol.classList.add("liked")  
-    }  
+        const tombol = document.getElementById(`btn-like-${idDokumen}`)
 
-    // 🔊 SUARA SAAT LIKE  
-    const suara = new Audio("like.mp3")  
-    suara.play()  
+        if (tombol) {
+            tombol.classList.add("liked")
+        }
 
-    // ❤️ Notifikasi  
-    tampilToast("❤️ Terima kasih sudah memberi Like!")  
+        // 🔊 SUARA LIKE
+        const suara = new Audio("./suara/like.mp3")
+        suara.volume = 1
+        suara.currentTime = 0
 
-} catch (error) {  
-    console.error(error)  
-    tampilToast("❌ Gagal memberikan like.")  
+        suara.play().catch(error => {
+            console.error("Suara gagal diputar:", error)
+        })
+
+        tampilToast("❤️ Terima kasih sudah memberi Like!")
+
+    } catch (error) {
+        console.error(error)
+        tampilToast("❌ Gagal memberikan like.")
+    }
 }
-
-}
-
 // 7. Fungsi untuk memuat daftar postingan di admin.html beserta tombol Hapus
 function muatDaftarAdmin() {
 if (!document.getElementById("daftarAdmin")) return
