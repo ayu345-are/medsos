@@ -16,12 +16,12 @@ import {
 
 // 2. konfigurasi Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyA9Y7W9t_3MFRj4oRybnr8MuUU8IiVC1b0",
-  authDomain: "rpl2528-720aa.firebaseapp.com",
-  projectId: "rpl2528-720aa",
-  storageBucket: "rpl2528-720aa.firebasestorage.app",
-  messagingSenderId: "715967831691",
-  appId: "1:715967831691:web:475f2e70041657c2bd3e8e"
+    apiKey: "AIzaSyA9Y7W9t_3MFRj4oRybnr8MuUU8IiVC1b0",
+    authDomain: "rpl2528-720aa.firebaseapp.com",
+    projectId: "rpl2528-720aa",
+    storageBucket: "rpl2528-720aa.firebasestorage.app",
+    messagingSenderId: "715967831691",
+    appId: "1:715967831691:web:475f2e70041657c2bd3e8e"
 };
 
 // 3. Inisialisasi aplikasi Firebase dan Firestore
@@ -33,10 +33,10 @@ const medsosCollection = collection(db, "medsos")
 function tampilToast(pesan) {
     const toast = document.getElementById("toast")
     if (!toast) return
-
+    
     toast.innerText = pesan
     toast.classList.add("show")
-
+    
     // Hilangkan toast secara otomatis setelah 2.5 detik
     setTimeout(() => {
         toast.classList.remove("show")
@@ -48,11 +48,11 @@ function tampilToast(pesan) {
 async function postingStatus() {
     // buat variabel untuk mengambil isi status
     let teks = document.getElementById("isiStatus").value.trim()
-
+    
     // abaikan jika teks kosong
     // langsung keluar dari fungsi ini
     if (teks === "") return
-
+    
     try {
         // buat dokumen baru di Firestore
         await addDoc(medsosCollection, {
@@ -60,10 +60,10 @@ async function postingStatus() {
             likes: 0,
             waktu: serverTimestamp()
         })
-
+        
         // kosongkan input teks setelah berhasil menambahkan status
         document.getElementById("isiStatus").value = ""
-
+        
         // tampilkan pesan sukses
         tampilToast("Status berhasil ditambahkan!")
     } catch (error) {
@@ -75,22 +75,37 @@ async function postingStatus() {
 // 5, Fungsi untuk memuat timeline dari Firestore
 // (digunakan di halaman index.html)
 function muatTimeline() {
-    // Cek dulu apakah elemen 'timeline' ada di halaman ini (menghindari error di admin.html)
+    // Cek dulu apakah elemen 'timeline' ada di halaman ini
     if (!document.getElementById("timeline")) return
-
+    
     const q = query(medsosCollection, orderBy("waktu", "desc"))
     const daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
     
-    const suaraPostinganBaru = new Audio("./sound/notifikasi.mp3")
-let jumlahPostinganSebelumnya = null
-
+    // Siapkan suara notifikasi
+    const suaraPostinganBaru = new Audio("notifikasi.mp3")
+    
+    let jumlahPostinganSebelumnya = null
+    
     onSnapshot(q, (snapshot) => {
+        // Jika bukan pertama kali mengambil data
+        if (
+            jumlahPostinganSebelumnya !== null &&
+            snapshot.size > jumlahPostinganSebelumnya
+        ) {
+            suaraPostinganBaru.play().catch((error) => {
+                console.log("Suara tidak dapat diputar:", error)
+            })
+        }
+        
+        jumlahPostinganSebelumnya = snapshot.size
+        
         let output = ""
+        
         snapshot.forEach((doc) => {
             let data = doc.data()
             let id = doc.id
             let sudahLike = daftarLike.includes(id) ? "liked" : ""
-
+            
             output += `
                 <div class="post-card">
                     <div class="post-content">${data.konten}</div>
@@ -100,47 +115,40 @@ let jumlahPostinganSebelumnya = null
                 </div>
             `
         })
+        
         document.getElementById("timeline").innerHTML = output
-        if (
-    jumlahPostinganSebelumnya !== null &&
-    snapshot.size > jumlahPostinganSebelumnya
-) {
-    suaraPostinganBaru.play()
-}
-
-jumlahPostinganSebelumnya = snapshot.size
     })
 }
 
 // 6. Fungsi untuk menambahkan like pada status
 async function sukaStatus(idDokumen) {
     let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
-
+    
     // Jika sudah di-like, munculkan peringatan
     if (daftarLike.includes(idDokumen)) {
         tampilToast("⚠️ Kamu sudah menyukai status ini!")
         return
     }
-
+    
     try {
         // 1. Update jumlah like di Firestore
         await updateDoc(doc(db, "medsos", idDokumen), {
             likes: increment(1)
         })
-
+        
         // 2. Simpan ID dokumen ke LocalStorage
         daftarLike.push(idDokumen)
         localStorage.setItem("SUDAH_LIKE", JSON.stringify(daftarLike))
-
+        
         // 3. 🚀 TAMBAHKAN CLASS 'liked' SECARA INSTAN KE TOMBOL
         const tombol = document.getElementById(`btn-like-${idDokumen}`)
         if (tombol) {
             tombol.classList.add("liked")
         }
-
+        
         // 4. Tampilkan notifikasi toast
         tampilToast("❤️ Terima kasih sudah memberi Like!")
-
+        
     } catch (error) {
         console.error(error)
         tampilToast("❌ Gagal memberikan like.")
@@ -150,9 +158,9 @@ async function sukaStatus(idDokumen) {
 // 7. Fungsi untuk memuat daftar postingan di admin.html beserta tombol Hapus
 function muatDaftarAdmin() {
     if (!document.getElementById("daftarAdmin")) return
-
+    
     const q = query(medsosCollection, orderBy("waktu", "desc"))
-
+    
     onSnapshot(q, (snapshot) => {
         let output = ""
         if (snapshot.empty) {
@@ -161,7 +169,7 @@ function muatDaftarAdmin() {
             snapshot.forEach((doc) => {
                 let data = doc.data()
                 let id = doc.id
-
+                
                 output += `
                     <div class="post-card">
                         <div class="post-content">${data.konten}</div>
@@ -180,7 +188,7 @@ function muatDaftarAdmin() {
 async function hapusStatus(idDokumen) {
     // Konfirmasi sebelum menghapus
     if (!confirm("Apakah Anda yakin ingin menghapus postingan ini?")) return
-
+    
     try {
         await deleteDoc(doc(db, "medsos", idDokumen))
         tampilToast("🗑️ Postingan berhasil dihapus!")
