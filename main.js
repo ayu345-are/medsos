@@ -121,46 +121,75 @@ function muatTimeline() {
 }
 // 6. Fungsi untuk menambahkan like pada status
 async function sukaStatus(idDokumen) {
-    let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
+let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
 
-    if (daftarLike.includes(idDokumen)) {
-        tampilToast("⚠️ Kamu sudah menyukai status ini!")
-        return
-    }
+// Jika sudah di-like  
+if (daftarLike.includes(idDokumen)) {  
+    tampilToast("⚠️ Kamu sudah menyukai status ini!")  
+    return  
+}  
 
-    try {
-        await updateDoc(doc(db, "medsos", idDokumen), {
-            likes: increment(1)
-        })
+try {  
+    // Update jumlah like di Firestore  
+    await updateDoc(doc(db, "medsos", idDokumen), {  
+        likes: increment(1)  
+    })  
 
-        daftarLike.push(idDokumen)
+    // Simpan ID yang sudah di-like  
+    daftarLike.push(idDokumen)  
+    localStorage.setItem(  
+        "SUDAH_LIKE",  
+        JSON.stringify(daftarLike)  
+    )  
 
-        localStorage.setItem(
-            "SUDAH_LIKE",
-            JSON.stringify(daftarLike)
-        )
+    // Ubah tampilan tombol  
+    const tombol = document.getElementById(`btn-like-${idDokumen}`)  
 
-        const tombol = document.getElementById(`btn-like-${idDokumen}`)
+    if (tombol) {  
+        tombol.classList.add("liked")  
+    }  
 
-        if (tombol) {
-            tombol.classList.add("liked")
-        }
+    // 🔊 SUARA SAAT LIKE  
+    const suara = new Audio("like.mp3")  
+    suara.play()  
 
-        // 🔊 PUTAR SUARA LIKE
-        const suara = document.getElementById("suaraLike")
+    // ❤️ Notifikasi  
+    tampilToast("❤️ Terima kasih sudah memberi Like!")  
 
-        if (suara) {
-            suara.pause()
-            suara.currentTime = 0
-            suara.play()
-        }
+} catch (error) {  
+    console.error(error)  
+    tampilToast("❌ Gagal memberikan like.")  
+}
 
-        tampilToast("❤️ Terima kasih sudah memberi Like!")
+}
 
-    } catch (error) {
-        console.error(error)
-        tampilToast("❌ Gagal memberikan like.")
-    }
+// 7. Fungsi untuk memuat daftar postingan di admin.html beserta tombol Hapus
+function muatDaftarAdmin() {
+if (!document.getElementById("daftarAdmin")) return
+
+const q = query(medsosCollection, orderBy("waktu", "desc"))  
+
+onSnapshot(q, (snapshot) => {  
+    let output = ""  
+    if (snapshot.empty) {  
+        output = "<p style='color: #8e8e8e; font-size: 14px;'>Belum ada postingan.</p>"  
+    } else {  
+        snapshot.forEach((doc) => {  
+            let data = doc.data()  
+            let id = doc.id  
+
+            output += `  
+                <div class="post-card">  
+                    <div class="post-content">${data.konten}</div>  
+                    <button class="btn-delete" onclick="hapusStatus('${id}')">  
+                        🗑️ Hapus Post  
+                    </button>  
+                </div>  
+            `  
+        })  
+    }  
+    document.getElementById("daftarAdmin").innerHTML = output  
+})
 }
 
 // 8. Fungsi untuk menghapus status dari Firestore
