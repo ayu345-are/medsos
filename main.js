@@ -80,6 +80,9 @@ function muatTimeline() {
 
     const q = query(medsosCollection, orderBy("waktu", "desc"))
     const daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
+    
+    const suaraPostinganBaru = new Audio("notifikasi.mp3")
+let jumlahPostinganSebelumnya = null
 
     onSnapshot(q, (snapshot) => {
         let output = ""
@@ -98,6 +101,14 @@ function muatTimeline() {
             `
         })
         document.getElementById("timeline").innerHTML = output
+        if (
+    jumlahPostinganSebelumnya !== null &&
+    snapshot.size > jumlahPostinganSebelumnya
+) {
+    suaraPostinganBaru.play()
+}
+
+jumlahPostinganSebelumnya = snapshot.size
     })
 }
 
