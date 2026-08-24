@@ -123,29 +123,37 @@ function muatTimeline() {
 async function sukaStatus(idDokumen) {
     let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
 
-    // Jika sudah di-like, munculkan peringatan
+    // Jika sudah di-like
     if (daftarLike.includes(idDokumen)) {
         tampilToast("⚠️ Kamu sudah menyukai status ini!")
         return
     }
 
     try {
-        // 1. Update jumlah like di Firestore
+        // Update jumlah like di Firestore
         await updateDoc(doc(db, "medsos", idDokumen), {
             likes: increment(1)
         })
 
-        // 2. Simpan ID dokumen ke LocalStorage
+        // Simpan ID yang sudah di-like
         daftarLike.push(idDokumen)
-        localStorage.setItem("SUDAH_LIKE", JSON.stringify(daftarLike))
+        localStorage.setItem(
+            "SUDAH_LIKE",
+            JSON.stringify(daftarLike)
+        )
 
-        // 3. 🚀 TAMBAHKAN CLASS 'liked' SECARA INSTAN KE TOMBOL
+        // Ubah tampilan tombol
         const tombol = document.getElementById(`btn-like-${idDokumen}`)
+
         if (tombol) {
             tombol.classList.add("liked")
         }
 
-        // 4. Tampilkan notifikasi toast
+        // 🔊 SUARA SAAT LIKE
+        const suara = new Audio("like.mp3")
+        suara.play()
+
+        // ❤️ Notifikasi
         tampilToast("❤️ Terima kasih sudah memberi Like!")
 
     } catch (error) {
