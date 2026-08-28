@@ -147,7 +147,7 @@ async function sukaStatus(idDokumen) {
         }
 
         // 🔊 SUARA LIKE
-        const suara = new Audio("sukalike.mp3")
+        const suara = new Audio("like.mp3")
         suara.volume = 4
         suara.currentTime = 0
 
