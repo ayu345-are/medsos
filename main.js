@@ -123,44 +123,51 @@ function muatTimeline() {
 async function sukaStatus(idDokumen) {
     let daftarLike = JSON.parse(localStorage.getItem("SUDAH_LIKE")) || []
 
+    // Jika sudah di-like, munculkan peringatan
     if (daftarLike.includes(idDokumen)) {
         tampilToast("⚠️ Kamu sudah menyukai status ini!")
         return
     }
 
     try {
+        // 1. Update jumlah like di Firestore
         await updateDoc(doc(db, "medsos", idDokumen), {
             likes: increment(1)
         })
 
+        // 2. Simpan ID dokumen ke LocalStorage
         daftarLike.push(idDokumen)
+        localStorage.setItem("SUDAH_LIKE", JSON.stringify(daftarLike))
 
-        localStorage.setItem(
-            "SUDAH_LIKE",
-            JSON.stringify(daftarLike)
-        )
-
+          
+         
+        // 3. 🚀 TAMBAHKAN CLASS 'liked' SECARA INSTAN KE TOMBOL
         const tombol = document.getElementById(`btn-like-${idDokumen}`)
-
         if (tombol) {
             tombol.classList.add("liked")
         }
-
-        // 🔊 SUARA LIKE
-        const suara = new Audio("like.mp3")
-        suara.volume = 4
-        suara.currentTime = 0
-
-        suara.play().catch(error => {
-            console.error("Suara gagal diputar:", error)
-        })
-
+        bunyiLike()
+   
+        // 4. Tampilkan notifikasi toast
         tampilToast("❤️ Terima kasih sudah memberi Like!")
 
     } catch (error) {
         console.error(error)
         tampilToast("❌ Gagal memberikan like.")
     }
+}
+function bunyiLike() {
+    const audio = new AudioContext()
+    const oscillator = audio.createOscillator()
+    const gain = audio.createGain()
+
+    oscillator.frequency.value = 800
+    oscillator.connect(gain)
+    gain.connect(audio.destination)
+
+    oscillator.start()
+    gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + 0.2)
+    oscillator.stop(audio.currentTime + 0.2)
 }
 // 7. Fungsi untuk memuat daftar postingan di admin.html beserta tombol Hapus
 function muatDaftarAdmin() {
