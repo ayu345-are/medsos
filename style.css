@@ -11,39 +11,44 @@ body {
     padding: 0;
 }
 
-/* ===== HEADER ===== */
+/* =========================
+   HEADER
+========================= */
 .header {
     background: #0095f6;
     color: white;
-    padding: 18px 15px;
+    padding: 18px 10px;
     text-align: center;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 .header span {
     display: block;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: normal;
     margin-top: 4px;
 }
 
-/* ===== MENU ===== */
+/* =========================
+   MENU
+========================= */
 .menu {
     background: white;
     display: flex;
     justify-content: center;
-    gap: 8px;
-    padding: 10px;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 8px;
     border-bottom: 1px solid #dbdbdb;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .menu a {
     text-decoration: none;
-    color: #0095f6;
-    font-weight: 600;
-    font-size: 14px;
+    color: #168bd0;
+    font-weight: bold;
+    font-size: 15px;
     padding: 8px 12px;
     border-radius: 8px;
 }
@@ -52,29 +57,38 @@ body {
     background-color: #eaf6ff;
 }
 
-/* ===== CONTAINER ===== */
+/* =========================
+   CONTAINER
+========================= */
 .container {
-    max-width: 500px;
+    max-width: 650px;
     margin: 0 auto;
-    padding: 20px 10px;
+    padding: 28px 15px;
 }
 
+/* =========================
+   JUDUL
+========================= */
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     color: #1e3a8a;
-    font-size: 20px;
+    font-size: 26px;
+    text-align: left;
 }
 
 h4 {
-    margin: 25px 0 10px;
-    font-size: 18px;
+    margin: 25px 0 12px;
+    font-size: 19px;
+    color: #262626;
 }
 
-/* ===== TEXTAREA ===== */
+/* =========================
+   TEXTAREA
+========================= */
 textarea {
     width: 100%;
+    min-height: 120px;
     padding: 15px;
-    min-height: 110px;
     border: 1px solid #dbdbdb;
     border-radius: 12px;
     resize: none;
@@ -89,7 +103,9 @@ textarea:focus {
     outline: none;
 }
 
-/* ===== BUTTON UMUM ===== */
+/* =========================
+   BUTTON UMUM
+========================= */
 button {
     background-color: #0095f6;
     color: white;
@@ -107,32 +123,36 @@ button:hover {
     background-color: #0077c6;
 }
 
-/* ===== POST CARD ===== */
+/* =========================
+   POST CARD
+========================= */
 .post-card {
     background: white;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #dbdbdb;
-    margin-bottom: 15px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
 }
 
 .post-content {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 18px;
     word-wrap: break-word;
 }
 
-/* ===== TOMBOL LIKE ===== */
+/* =========================
+   TOMBOL LIKE
+========================= */
 .btn-like {
     background: #f3f4f6;
     color: #4b5563;
     border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 10px 18px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     width: auto;
     display: inline-flex;
@@ -141,12 +161,18 @@ button:hover {
     transition: all 0.2s;
 }
 
+.btn-like:hover {
+    background: #e5e7eb;
+}
+
 .btn-like.liked {
     background-color: #fee2e2;
     color: #dc2626;
 }
 
-/* ===== TOMBOL EDIT ===== */
+/* =========================
+   TOMBOL EDIT
+========================= */
 .btn-edit {
     background-color: #0095f6;
     color: white;
@@ -165,7 +191,9 @@ button:hover {
     background-color: #0077c6;
 }
 
-/* ===== TOMBOL DELETE ===== */
+/* =========================
+   TOMBOL HAPUS
+========================= */
 .btn-delete {
     background-color: #ef4444;
     color: white;
@@ -183,7 +211,9 @@ button:hover {
     background-color: #dc2626;
 }
 
-/* ===== TOAST ===== */
+/* =========================
+   TOAST
+========================= */
 .toast {
     visibility: hidden;
     min-width: 220px;
@@ -209,16 +239,61 @@ button:hover {
     top: 50px;
 }
 
-/* ===== FOOTER ===== */
+/* =========================
+   FOOTER
+========================= */
 .footer {
-    margin-top: 30px;
-    padding: 20px 10px;
+    margin-top: 35px;
+    padding: 22px 10px;
     text-align: center;
     background-color: #0095f6;
     color: white;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .footer small {
-    font-size: 12px;
+    font-size: 13px;
+}
+
+/* =========================
+   TAMPILAN HP
+========================= */
+@media (max-width: 600px) {
+
+    .header {
+        font-size: 23px;
+        padding: 16px 10px;
+    }
+
+    .header span {
+        font-size: 14px;
+    }
+
+    .menu {
+        gap: 5px;
+        padding: 10px 5px;
+    }
+
+    .menu a {
+        font-size: 14px;
+        padding: 8px 9px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 25px 15px;
+    }
+
+    h2 {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+
+    .post-card {
+        padding: 18px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
 }
