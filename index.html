@@ -2,48 +2,49 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medsos Mini</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medsos Mini - Beranda</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="home-page">
 
-    <!-- ===== HEADER ===== -->
-    <header class="header">
-        🚀 Medsos Mini
-        <span>Timeline Status</span>
-    </header>
+  <!-- HEADER BERANDA -->
+  <header class="home-header">
+    <div class="logo">🚀 Medsos Mini</div>
+    <div class="subtitle">Timeline Status</div>
+  </header>
 
-    <!-- ===== MENU ===== -->
-    <nav class="menu">
-        <a href="index.html">🏠 Beranda</a>
-        <a href="admin.html">📝 Buat Postingan</a>
-    </nav>
+  <!-- MENU -->
+  <nav class="menu">
+    <a href="index.html" class="active">🏠 Beranda</a>
+    <a href="admin.html">📝 Buat Postingan</a>
+  </nav>
 
-    <!-- ===== ISI HALAMAN ===== -->
-    <main class="container">
+  <!-- ISI BERANDA -->
+  <main class="container">
 
-        <h2>🚀 Timeline Status</h2>
+    <div class="home-title">
+      <h2>🚀 Timeline Status</h2>
+      <p>Lihat postingan terbaru di Medsos Mini</p>
+    </div>
 
-        <div id="timeline"></div>
+    <div id="timeline"></div>
 
-    </main>
+  </main>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        🚀 Medsos Mini
-        <br>
-        <small>© 2026 Medsos Mini</small>
-    </footer>
+  <!-- FOOTER -->
+  <footer class="home-footer">
+    <b>🚀 Medsos Mini</b>
+    <p>© 2026 Medsos Mini</p>
+  </footer>
 
-    <!-- Toast -->
-    <div id="toast" class="toast"></div>
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
 
-    <!-- JavaScript -->
-    <script src="main.js" type="module"></script>
+  <script src="main.js" type="module"></script>
 
 </body>
 

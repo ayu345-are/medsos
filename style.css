@@ -1,7 +1,16 @@
+/* =========================
+   RESET
+========================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
@@ -15,79 +24,138 @@ body {
     flex-direction: column;
 }
 
+
 /* =========================
-   HEADER
+   HEADER BERANDA
 ========================= */
-.header {
-    background: #0095f6;
+.home-header {
+    width: 100%;
+    background-color: #7AADD5;
     color: white;
-    padding: 18px 10px;
-    text-align: center;
-    font-size: 25px;
+    text-align: left;
+    padding: 18px 20px;
+}
+
+.home-header .logo {
+    color: white;
+    font-size: 22px;
     font-weight: bold;
 }
 
-.header span {
-    display: block;
-    font-size: 15px;
-    font-weight: normal;
-    margin-top: 4px;
+.home-header .subtitle {
+    color: white;
+    font-size: 16px;
+    margin-top: 5px;
 }
+
+
+/* =========================
+   HEADER ADMIN
+========================= */
+.admin-header {
+    width: 100%;
+    background-color: #74A5DA;
+    color: white;
+    text-align: left;
+    padding: 18px 20px;
+}
+
+.admin-header .logo {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.admin-header .subtitle {
+    color: white;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
 
 /* =========================
    MENU
 ========================= */
 .menu {
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    padding: 12px 8px;
-    border-bottom: 1px solid #dbdbdb;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    background-color: white;
+    padding: 12px 5px;
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .menu a {
+    display: inline-block;
     text-decoration: none;
-    color: #168bd0;
+    color: #0028EE;
     font-weight: bold;
-    font-size: 15px;
-    padding: 8px 12px;
-    border-radius: 8px;
+    margin: 0 10px;
+    padding: 8px 10px;
 }
 
 .menu a:hover {
-    background-color: #eaf6ff;
+    background-color: #eff6ff;
+    border-radius: 8px;
 }
+
+.menu a.active {
+    color: #001AF6;
+}
+
 
 /* =========================
    CONTAINER
 ========================= */
 .container {
-    max-width: 650px;
     width: 100%;
+    max-width: 500px;
     margin: 0 auto;
-    padding: 28px 15px;
+    padding: 30px 15px;
 
+    /* Mendorong footer ke bawah */
     flex: 1;
 }
+
 
 /* =========================
    JUDUL
 ========================= */
 h2 {
-    margin-bottom: 22px;
-    color: #1e3a8a;
-    font-size: 26px;
-    text-align: left;
+    margin-bottom: 20px;
+    color: #000BF3;
+    font-size: 24px;
 }
 
-h4 {
-    margin: 25px 0 12px;
-    font-size: 19px;
-    color: #262626;
+.home-title {
+    margin-bottom: 25px;
 }
+
+.home-title p {
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+
+/* =========================
+   ADMIN FORM
+========================= */
+.admin-form,
+.admin-list {
+    background-color: white;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.admin-info {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
 
 /* =========================
    TEXTAREA
@@ -95,26 +163,26 @@ h4 {
 textarea {
     width: 100%;
     min-height: 120px;
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #dbdbdb;
-    border-radius: 12px;
-    resize: none;
-    font-size: 15px;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 14px;
     margin-bottom: 10px;
     font-family: inherit;
-    background: white;
-}
-
-textarea:focus {
-    border-color: #0095f6;
     outline: none;
 }
 
+textarea:focus {
+    border-color: #1200F8;
+}
+
+
 /* =========================
-   BUTTON UMUM
+   TOMBOL UMUM
 ========================= */
 button {
-    background-color: #0095f6;
+    background-color: #001AF6;
     color: white;
     border: none;
     padding: 12px;
@@ -123,53 +191,63 @@ button {
     cursor: pointer;
     width: 100%;
     font-size: 14px;
-    transition: background 0.2s;
 }
 
 button:hover {
-    background-color: #0077c6;
+    background-color: #0A07EF;
 }
+
+
+/* =========================
+   TOMBOL POST
+========================= */
+.btn-post {
+    width: 100%;
+    background-color: #000BF5;
+    color: white;
+}
+
+.btn-post:hover {
+    background-color: #2D13F7;
+}
+
 
 /* =========================
    POST CARD
 ========================= */
 .post-card {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid #ddd;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+    background-color: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .post-content {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
     word-wrap: break-word;
 }
+
 
 /* =========================
    TOMBOL LIKE
 ========================= */
 .btn-like {
-    background: #f3f4f6;
+    background-color: #f3f4f6;
     color: #4b5563;
     border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     width: auto;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    transition: all 0.2s;
-}
-
-.btn-like:hover {
-    background: #e5e7eb;
 }
 
 .btn-like.liked {
@@ -177,46 +255,93 @@ button:hover {
     color: #dc2626;
 }
 
-/* =========================
-   TOMBOL EDIT
-========================= */
-.btn-edit {
-    background-color: #0095f6;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    width: auto;
-    cursor: pointer;
-    margin-right: 6px;
-    transition: background-color 0.2s;
-}
-
-.btn-edit:hover {
-    background-color: #0077c6;
-}
 
 /* =========================
-   TOMBOL HAPUS
+   TOMBOL DELETE
 ========================= */
 .btn-delete {
     background-color: #ef4444;
     color: white;
     border: none;
-    padding: 10px 14px;
+    padding: 8px 14px;
     border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
     width: auto;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .btn-delete:hover {
     background-color: #dc2626;
 }
+
+
+/* =========================
+   TOMBOL EDIT
+========================= */
+.btn-edit {
+    background-color: #f59e0b;
+    width: auto;
+    padding: 8px 14px;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #d97706;
+}
+
+
+/* =========================
+   FOOTER BERANDA
+========================= */
+.home-footer {
+    width: 100%;
+    background-color: #162DE1;
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+
+    /* Footer turun ke paling bawah */
+    margin-top: auto;
+}
+
+.home-footer b {
+    color: white;
+    font-size: 16px;
+}
+
+.home-footer p {
+    color: white;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   FOOTER ADMIN
+========================= */
+.admin-footer {
+    width: 100%;
+    background-color: #410CDD;
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+
+    /* Footer turun ke paling bawah */
+    margin-top: auto;
+}
+
+.admin-footer b {
+    color: white;
+    font-size: 16px;
+}
+
+.admin-footer p {
+    color: white;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
 
 /* =========================
    TOAST
@@ -224,8 +349,8 @@ button:hover {
 .toast {
     visibility: hidden;
     min-width: 220px;
-    background-color: #333;
-    color: #fff;
+    background-color: #0C30E6;
+    color: white;
     text-align: center;
     border-radius: 8px;
     padding: 12px 16px;
@@ -246,62 +371,95 @@ button:hover {
     top: 50px;
 }
 
-/* =========================
-   FOOTER
-========================= */
-.footer {
-    margin-top: auto;
-    padding: 22px 10px;
-    text-align: center;
-    background-color: #0095f6;
-    color: white;
-    font-size: 16px;
-    width: 100%;
-}
-
-.footer small {
-    font-size: 13px;
-}
 
 /* =========================
    TAMPILAN HP
 ========================= */
 @media (max-width: 600px) {
 
-    .header {
-        font-size: 23px;
-        padding: 16px 10px;
+    body {
+        width: 100%;
+        padding: 0;
+        margin: 0;
     }
 
-    .header span {
+    /* HEADER BERANDA */
+    .home-header {
+        width: 100%;
+        padding: 16px 18px;
+        background-color: #2117E0;
+    }
+
+    .home-header .logo {
+        font-size: 21px;
+    }
+
+    .home-header .subtitle {
         font-size: 14px;
     }
 
+
+    /* HEADER ADMIN */
+    .admin-header {
+        width: 100%;
+        padding: 16px 18px;
+        background-color: #405FCD;
+    }
+
+    .admin-header .logo {
+        font-size: 21px;
+    }
+
+    .admin-header .subtitle {
+        font-size: 14px;
+    }
+
+
+    /* MENU */
     .menu {
-        gap: 5px;
-        padding: 10px 5px;
+        width: 100%;
+        padding: 10px 3px;
     }
 
     .menu a {
         font-size: 14px;
-        padding: 8px 9px;
+        margin: 0 3px;
+        padding: 8px 7px;
     }
 
+
+    /* CONTAINER */
     .container {
         width: 100%;
+        max-width: 500px;
         padding: 25px 15px;
+
+        /* Tetap mendorong footer ke bawah */
+        flex: 1;
     }
 
+
+    /* JUDUL */
     h2 {
-        font-size: 25px;
-        margin-bottom: 20px;
+        font-size: 23px;
     }
 
+
+    /* POST */
     .post-card {
         padding: 18px;
     }
 
     .post-content {
         font-size: 16px;
+    }
+
+
+    /* FOOTER */
+    .home-footer,
+    .admin-footer {
+        width: 100%;
+        padding: 20px 10px;
+        margin-top: auto;
     }
 }
