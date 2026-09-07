@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Posting</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    🚀 Medsos Mini
+    <span>Admin Panel</span>
+  </header>
+
+  <!-- MENU -->
+  <nav class="menu">
+    <a href="index.html">🏠 Beranda</a>
+    <a href="admin.html">📝 Buat Postingan</a>
+  </nav>
+
+  <div class="container">
+
+    <h2>📝 Buat Postingan Baru</h2>
+
+    <textarea 
+      id="isiStatus" 
+      placeholder="Tulis sesuatu..."
+    ></textarea>
+
+    <button onclick="postingStatus()">
+      🚀 Kirim Status
+    </button>
+
+    <br><br>
+
+    <h4>📋 Daftar Postingan Admin</h4>
+
+    <div id="daftarAdmin"></div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    🚀 Medsos Mini
+    <br>
+    <small>© 2026 Admin Posting</small>
+  </footer>
+
+  <script src="main.js" type="module"></script>
+
+</body>
+
+</html>
